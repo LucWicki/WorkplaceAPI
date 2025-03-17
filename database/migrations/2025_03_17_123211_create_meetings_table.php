@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')
-                        ->constrained('weekdays')
+                        ->constrained('departments')
                         ->onDelete('cascade');
             $table->string('meetingname');
             $table->string('reason');
+
         });
     }
 
