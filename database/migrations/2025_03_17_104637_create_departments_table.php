@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('weekday_id')
+                        ->constrained('weekdays')
+                        ->onDelete('cascade');
+            $table->string('departmentname');
+            $table->string('departmentwebsite');
         });
     }
 
