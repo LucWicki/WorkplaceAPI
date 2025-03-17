@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('allocations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('department_id')
-                        ->constrained('weekdays')
+                        ->constrained('departments')
                         ->onDelete('cascade');
             $table->foreignId('employee_id')
-                        ->constrained('weekdays')
+                        ->constrained('employees')
                         ->onDelete('cascade');
         });
     }
