@@ -17,7 +17,7 @@ class WeekdayFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'dayname' => fake()->name(),
         ];
     }
 }
