@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employee;
+use App\Models\User;
 use App\Models\Weekday;
 use App\Models\Department;
 use App\Models\Allocation;
@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Employee::factory()->create([
+        User::factory()->create([
             'username' => 'Chef',
-            'email' => 'Chef@work.ch',
+            'email' => 'chef@work.ch',
             'password' => 'password',
             'is_chef' => true
         ]);
-        Employee::factory(2)->create();
+        User::factory(2)->create();
 
         Weekday::factory()->create(['dayname' => 'Monday']);
         Weekday::factory()->create(['dayname' => 'Tuesday']);

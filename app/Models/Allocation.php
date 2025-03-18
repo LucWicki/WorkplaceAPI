@@ -11,12 +11,12 @@ class Allocation extends Model
     use HasFactory;
     public $timestamps = false;
 
-    protected $fillable = ['employee_id', 'department_id'];
+    protected $fillable = ['user_id', 'department_id'];
 
     // Definining relationships
-    public function employee()
+    public function user()
     {
-        return $this->belongsTo(Employee::class);
+        return $this->belongsTo(User::class);
     }
     public function department()
     {
