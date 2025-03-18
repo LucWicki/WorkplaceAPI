@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
             'is_chef' => true
         ]);
-        User::factory(2)->create();
+        User::factory(2)->create(['password' => 'password']);
 
         Weekday::factory()->create(['dayname' => 'Monday']);
         Weekday::factory()->create(['dayname' => 'Tuesday']);
