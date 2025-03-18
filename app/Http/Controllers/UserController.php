@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 
 class UserController extends Controller
-{
+{ //TODO
     /**
      * Display a listing of the resource.
      */
@@ -19,44 +19,31 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new User.
      */
     public function store(StoreUserRequest $request)
     {
-        //
+        /**
+         * validate request
+         * create user
+         * return as UserResource
+         */
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update a specific User.
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        /**
+         * validate request
+         * if else logic / maybe external function
+         * this logic / function sets the values to their old values if the values in the request are empty
+         * update the User
+         * return data
+         */
     }
 
     /**
@@ -64,8 +51,24 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        /**
+         * check if the chef tries to delete themselves, and if yes return an error
+         * continue if no
+         * check if the user exists
+         * yes: delete user
+         * no: return error with "this user doesn't exist
+         * (prolly won't be used as the User Model already controls this usually)
+         * delete user
+         * return confirmation message
+         */
     }
 
-    public function displayDepartmentInfos(){}
+    //shows / displays the User and the infos of their department
+    public function displayDepartmentInfos(User $user){
+        /**
+         * SELECT Statement that combines the wanted data
+         * return data
+         */
+
+    }
 }
