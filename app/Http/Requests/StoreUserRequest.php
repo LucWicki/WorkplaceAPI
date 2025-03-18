@@ -20,9 +20,12 @@ class StoreUserRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
+    { //TODO: add requirements to password rule
         return [
-            //
+            'username' => 'required|string|max:255',
+            'email' => 'required|unique:users,email|regex:/(.+)@(.+)\.(.+)/i',
+            'password' => 'required',
+            'is_chef' => 'required|boolean'
         ];
     }
 }
