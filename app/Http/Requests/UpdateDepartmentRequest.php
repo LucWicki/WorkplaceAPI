@@ -11,7 +11,7 @@ class UpdateDepartmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateDepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'departmentname' => 'nullable|string|max:255|unique:departments,departmentname'.$this->department->id,
+            'departmentwebsite' => 'nullable|string', //TODO: maybe with regex or a website rule?
+            'weekday_id' => 'nullable|integer|exists:weekdays,id',
         ];
     }
 }
