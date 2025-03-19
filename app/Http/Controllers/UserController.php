@@ -41,7 +41,6 @@ class UserController extends Controller
 
         $user = User::create($userTable);
         $user->departments()->attach($validated['department_id']);
-        return $user;
         return new UserResource($user);
     }
 
@@ -75,6 +74,7 @@ class UserController extends Controller
                                     ->first();
                 $validated['department_id'] = $department;
             }
+            $user->departments()->sync($validated['department_id']);
             $user->update($userTable);
             return $user;
     }
