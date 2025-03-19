@@ -16,6 +16,13 @@ class Department extends Model
     // Definining relationships
     public function weekday()
     {
-        return $this->belongsTo(Weekday::class);
+        return $this->hasOne(Weekday::class);
     }
+
+    // Defines that when you for example attach an User it saves it in the allocations table
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'allocations');
+    }
+
 }
