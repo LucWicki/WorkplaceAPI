@@ -43,7 +43,7 @@ class DepartmentController extends Controller
         /**
          * validate request
          * check if department exists (will most likely be done in the UpdateRequest)
-         * this includes: checking the name
+         * this includes: checking the departmentname
          * if else logic / maybe external function
          * this logic / function sets the values to their old values if the values in the request are empty
          * create department
@@ -56,11 +56,10 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //TODO ask Artjan what he thinks abt this, aka can a department with users be deleted or not
-        //and if not what to do?
         /**
          * check if the department has users
-         * if it has users
+         * if it has users error message "there are still Employee in this department"
+         * if empty: delete
          */
     }
 
