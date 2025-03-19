@@ -24,7 +24,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'IsChef'
+        'is_chef'
     ];
 
     /**
@@ -48,5 +48,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Defines that when you for example attach a department it saves it in the allocations table
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class, 'allocations');
     }
 }
