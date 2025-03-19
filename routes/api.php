@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\MeetingController;
 
 
 //TODO: Routen definieren
@@ -15,14 +16,18 @@ Route::middleware(['web'])->group( function(){
     Route::post('/logout', [LoginController::class, 'logout']);
 });
 
+Route::get('/meetings', [MeetingController::class, 'index']);
 
 Route::middleware(['chef', 'auth:sanctum'])->group( function(){
     //user Routes
     Route::ApiResource('users', 'App\Http\Controllers\UserController');
-    Route::get('/users/displaydepartmentinfos|{user}',[DepartmentController::class, 'displayDepartmentInfos']);
+    Route::get('/users/displaydepartmentinfos/{user}',[DepartmentController::class, 'displayDepartmentInfos']);
 
     //department Routes
     Route::ApiResource('departments', 'App\Http\Controllers\DepartmentController');
-    Route::get('/departments/displayemployees|{department}',[DepartmentController::class, 'displayemployees']);
+    Route::get('/departments/displayemployees/{department}',[DepartmentController::class, 'displayemployees']);
 
+    Route::post('/meetings', [MeetingController::class, 'store']);
+    Route::put('/meetings', [MeetingController::class, 'update']);
+    Route::delete('/meetings', [MeetingController::class, 'destroy']);
 });
