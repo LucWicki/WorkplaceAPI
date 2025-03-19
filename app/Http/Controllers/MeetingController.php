@@ -14,15 +14,10 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        /**
+         * define a variable with all meetings
+         * return it as Resource
+         */
     }
 
     /**
@@ -30,23 +25,13 @@ class MeetingController extends Controller
      */
     public function store(StoreMeetingRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Meeting $meeting)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Meeting $meeting)
-    {
-        //
+        /**
+         * validate request
+         * check if Meeting exists (will most likely be done in the StoreRequest)
+         * checked values are:
+         * create meeting
+         * return data
+         */
     }
 
     /**
@@ -54,7 +39,15 @@ class MeetingController extends Controller
      */
     public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {
-        //
+        /**
+         * validate request
+         * check if meeting exists (will most likely be done in the UpdateRequest)
+         * this includes: checking the meetingname
+         * if else logic / maybe external function
+         * this logic / function sets the values to their old values if the values in the request are empty
+         * create department
+         * return data
+         */
     }
 
     /**
@@ -62,6 +55,10 @@ class MeetingController extends Controller
      */
     public function destroy(Meeting $meeting)
     {
-        //
+        /**
+         * check if the meeting has a department
+         * if it has a department error message "a department has this meeting"
+         * if empty: delete
+         */
     }
 }
