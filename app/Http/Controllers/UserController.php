@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Allocation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -25,11 +26,20 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        /**
-         * validate request
-         * create user
-         * return as UserResource
-         */
+
+        $validated = $request->validated();
+        $userTable = [
+            'username' => $validated['username'],
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+            'is_chef' => $validated['is_chef']
+        ];
+
+
+        $user = User::create($userTable);
+        $user->departments()->attach($validated['department_id']);
+        return $user;
+        return new UserResource($user);
     }
 
     /**
@@ -42,6 +52,9 @@ class UserController extends Controller
          * if else logic / maybe external function
          * this logic / function sets the values to their old values if the values in the request are empty
          * update the User
+         *
+         * also update allocation table with user join table(SQL)
+         *
          * return data
          */
     }
