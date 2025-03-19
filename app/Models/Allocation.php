@@ -12,14 +12,4 @@ class Allocation extends Model
     public $timestamps = false;
 
     protected $fillable = ['user_id', 'department_id'];
-
-    // Definining relationships
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
 }
