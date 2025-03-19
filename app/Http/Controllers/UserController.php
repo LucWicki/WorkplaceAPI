@@ -8,9 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
-{ //TODO
+{
+
     /**
      * Display a listing of the resource.
      */
@@ -47,16 +50,33 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        /**
-         * validate request
-         * if else logic / maybe external function
-         * this logic / function sets the values to their old values if the values in the request are empty
-         * update the User
-         *
-         * also update allocation table with user join table(SQL)
-         *
-         * return data
-         */
+
+
+            $validated = $request->validated();
+            $userTable = [
+                'username' => $validated['username'],
+                'email' => $validated['email'],
+                'password' => $validated['password'],
+                'is_chef' => $validated['is_chef']
+            ];
+
+            $fields = ['username', 'email', 'password', 'is_chef'];
+
+            foreach($fields as $field){
+                if(empty($userTable[$field])){
+                    $userTable[$field] = $user->$field;
+                }
+            }
+
+            if(empty($validated['department_id'])){
+                $department = User::select('allocations.department_id')
+                                    ->join('allocations', 'allocations.user_id', '=', 'users.id')
+                                    ->where('users.id', Auth::id())
+                                    ->first();
+                $validated['department_id'] = $department;
+            }
+            $user->update($userTable);
+            return $user;
     }
 
     /**
@@ -64,16 +84,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        /**
-         * check if the chef tries to delete themselves, and if yes return an error
-         * continue if no
-         * check if the user exists
-         * yes: delete user
-         * no: return error with "this user doesn't exist
-         * (prolly won't be used as the User Model already controls this usually)
-         * delete user
-         * return confirmation message
-         */
+        //ensures that admin won't delete themselves
+        if (!Controller::checkDataAccess($user->id)) {
+            return response()->json(['message'=>'You can not delete yourself'], 403);
+        }
+
+        $user->delete();
+        return response()->json('everything worked', 200);
     }
 
     //shows / displays the User and the infos of their department
