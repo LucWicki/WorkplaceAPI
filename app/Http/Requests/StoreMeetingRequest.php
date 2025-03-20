@@ -11,7 +11,7 @@ class StoreMeetingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'meetingname' => 'required|string|max:255|unique:meetings,meetingname',
+            'reason' => 'required|string|max:255',
+            'department_id' => 'required|integer|exists:departments,id',
         ];
     }
 }

@@ -11,7 +11,7 @@ class UpdateMeetingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateMeetingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'meetingname' => 'nullable|string|max:255|unique:meetings,meetingname,'.$this->meeting->id,
+            'reason' => 'nullable|string|max:255',
+            'department_id' => 'nullable|integer|exists:departments,id',
         ];
     }
 }
