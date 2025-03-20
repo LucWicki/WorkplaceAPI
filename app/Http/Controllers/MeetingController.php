@@ -6,6 +6,8 @@ use App\Models\Meeting;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMeetingRequest;
 use App\Http\Requests\UpdateMeetingRequest;
+use App\Http\Resources\MeetingResource;
+
 
 class MeetingController extends Controller
 {
@@ -14,10 +16,8 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        /**
-         * define a variable with all meetings
-         * return it as Resource
-         */
+        $meetings = Meeting::all();
+        return MeetingResource::collection($meetings);
     }
 
     /**
@@ -32,6 +32,9 @@ class MeetingController extends Controller
          * create meeting
          * return data
          */
+        $validated = $request->validated();
+        $meeting = Meeting::create($validated);
+        return new MeetingResource($meeting);
     }
 
     /**
@@ -39,26 +42,15 @@ class MeetingController extends Controller
      */
     public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {
-        /**
-         * validate request
-         * check if meeting exists (will most likely be done in the UpdateRequest)
-         * this includes: checking the meetingname
-         * if else logic / maybe external function
-         * this logic / function sets the values to their old values if the values in the request are empty
-         * create department
-         * return data
-         */
-    }
+        $validated = $request->validated();
+        $fields = ['meetingname', 'reason', 'department_id'];
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Meeting $meeting)
-    {
-        /**
-         * check if the meeting has a department
-         * if it has a department error message "a department has this meeting"
-         * if empty: delete
-         */
+            foreach($fields as $field){
+                if(empty($validated[$field])){
+                    $validated[$field] = $meeting->$field;
+                }
+            }
+            $meeting->update($validated);
+            return $meeting;
     }
 }
