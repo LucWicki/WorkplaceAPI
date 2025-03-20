@@ -100,5 +100,14 @@ class UserController extends Controller
          * return data
          */
 
+         $data = User::select('users.username', 'departments.departmentname', 'departments.departmentwebsite', 'weekdays.dayname as MeetingDay')
+         ->join('allocations', 'users.id', '=', 'allocations.user_id')
+         ->join('departments', 'allocations.department_id', '=', 'departments.id')
+         ->join('weekdays', 'departments.weekday_id', '=', 'weekdays.id')
+         ->where('users.id', $user->id)
+         ->get();
+
+         return $data;
+
     }
 }
