@@ -28,6 +28,5 @@ Route::middleware(['chef', 'auth:sanctum'])->group( function(){
     Route::get('/departments/displayemployees/{department}',[DepartmentController::class, 'displayemployees']);
 
     Route::post('/meetings', [MeetingController::class, 'store']);
-    Route::put('/meetings', [MeetingController::class, 'update']);
-    Route::delete('/meetings', [MeetingController::class, 'destroy']);
+    Route::put('/meetings/{meeting}', [MeetingController::class, 'update']);
 });
