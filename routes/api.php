@@ -21,11 +21,11 @@ Route::get('/meetings', [MeetingController::class, 'index']);
 Route::middleware(['chef', 'auth:sanctum'])->group( function(){
     //user Routes
     Route::ApiResource('users', 'App\Http\Controllers\UserController');
-    Route::get('/users/displaydepartmentinfos/{user}',[DepartmentController::class, 'displayDepartmentInfos']);
+    Route::get('/users/displaydepartmentinfos/{user}',[UserController::class, 'displayDepartmentInfos']);
 
     //department Routes
     Route::ApiResource('departments', 'App\Http\Controllers\DepartmentController');
-    Route::get('/departments/displayemployees/{department}',[DepartmentController::class, 'displayemployees']);
+    Route::get('/departments/displayemployees/{department}',[DepartmentController::class, 'displayEmployees']);
 
     Route::post('/meetings', [MeetingController::class, 'store']);
     Route::put('/meetings/{meeting}', [MeetingController::class, 'update']);
