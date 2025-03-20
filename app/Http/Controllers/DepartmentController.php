@@ -89,5 +89,13 @@ class DepartmentController extends Controller
          * SELECT Statement that combines the wanted data
          * return data
          */
+        //return $department;
+         $employees = Department::select('users.username')
+         ->join('allocations', 'departments.id', '=', 'allocations.department_id')
+         ->join('users', 'allocations.user_id', '=', 'users.id')
+         ->where('allocations.department_id', $department->id)
+         ->get();
+
+         return $employees;
     }
 }
