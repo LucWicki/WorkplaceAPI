@@ -13,8 +13,8 @@ class Meeting extends Model
 
     protected $fillable = ['department_id',  'meetingname' , 'reason'];
      // Definining relationships
-     public function department()
+     public function departments()
      {
-         return $this->belongsTo(Department::class);
+         return $this->hasOne(Department::class);
      }
 }
