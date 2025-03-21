@@ -30,15 +30,17 @@ class LoginController extends Controller
             'token_type' => 'Bearer',
         ]);
     }
+    //with frontend add ":RedirectResponse" and add a redirect to the homepage
 
-    public function logout(LoginRequest $request):RedirectResponse
+    public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return response()->json('everything worked', 200);
+
     }
 }
