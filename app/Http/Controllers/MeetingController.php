@@ -17,6 +17,9 @@ class MeetingController extends Controller
     public function index()
     {
         $meetings = Meeting::all();
+        if ($meetings->IsEmpty()) {
+            return response()->json('No Meetings available', 404);
+        }
         return MeetingResource::collection($meetings);
     }
 
