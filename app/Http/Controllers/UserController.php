@@ -52,11 +52,13 @@ class UserController extends Controller
 
 
             $validated = $request->validated();
+            //because department_id is not in the users table
+            // ??null to prevent undefined array key error
             $userTable = [
-                'username' => $validated['username'],
-                'email' => $validated['email'],
-                'password' => $validated['password'],
-                'is_chef' => $validated['is_chef']
+                'username' => $validated['username']?? null,
+                'email' => $validated['email']?? null,
+                'password' => $validated['password']?? null,
+                'is_chef' => $validated['is_chef']?? null
             ];
 
             $fields = ['username', 'email', 'password', 'is_chef'];
