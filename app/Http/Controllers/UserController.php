@@ -15,7 +15,7 @@ class UserController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Display all users aka employees
      */
     public function index()
     {
@@ -25,7 +25,7 @@ class UserController extends Controller
 
 
     /**
-     * Store a new User.
+     * Store a newly created User.
      */
     public function store(StoreUserRequest $request)
     {
@@ -54,6 +54,7 @@ class UserController extends Controller
             $validated = $request->validated();
             //because department_id is not in the users table
             // ??null to prevent undefined array key error
+            //TODO: what does ?? null really mean
             $userTable = [
                 'username' => $validated['username']?? null,
                 'email' => $validated['email']?? null,
@@ -82,7 +83,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a specific user
      */
     public function destroy(User $user)
     {
@@ -95,13 +96,10 @@ class UserController extends Controller
         return response()->json('everything worked', 200);
     }
 
-    //shows / displays the User and the infos of their department
+    // displays the User and the infos of their department
     public function displayDepartmentInfos(User $user){
-        /**
-         * SELECT Statement that combines the wanted data
-         * return data
-         */
 
+        //selects the user and the department and the departmentInfos = columns
          $data = User::select('users.username', 'departments.departmentname', 'departments.departmentwebsite', 'weekdays.dayname as MeetingDay')
          ->join('allocations', 'users.id', '=', 'allocations.user_id')
          ->join('departments', 'allocations.department_id', '=', 'departments.id')

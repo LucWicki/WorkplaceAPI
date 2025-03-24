@@ -12,10 +12,11 @@ use App\Http\Resources\MeetingResource;
 class MeetingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all meetings
      */
     public function index()
     {
+
         $meetings = Meeting::all();
         if ($meetings->IsEmpty()) {
             return response()->json('No Meetings available', 404);
@@ -24,24 +25,17 @@ class MeetingController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created meeting
      */
     public function store(StoreMeetingRequest $request)
     {
-        /**
-         * validate request
-         * check if Meeting exists (will most likely be done in the StoreRequest)
-         * checked values are:
-         * create meeting
-         * return data
-         */
         $validated = $request->validated();
         $meeting = Meeting::create($validated);
         return new MeetingResource($meeting);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a specific meeting
      */
     public function update(UpdateMeetingRequest $request, Meeting $meeting)
     {

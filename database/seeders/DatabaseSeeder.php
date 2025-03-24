@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
+        //creates the chef
         User::factory()->create([
             'username' => 'Chef',
             'email' => 'chef@work.ch',

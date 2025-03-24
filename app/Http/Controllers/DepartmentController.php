@@ -11,9 +11,9 @@ use App\Http\Resources\DepartmentResource;
 
 class DepartmentController extends Controller
 {
-    //TODO
+
     /**
-     * Display a listing of the resource.
+     * Display all departments
      */
     public function index()
     {
@@ -23,7 +23,7 @@ class DepartmentController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created department
      */
     public function store(StoreDepartmentRequest $request)
     {
@@ -33,24 +33,15 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a specific department
      */
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        /**
-         * validate request
-         * check if department exists (will most likely be done in the UpdateRequest)
-         * this includes: checking the departmentname
-         * if else logic / maybe external function
-         * this logic / function sets the values to their old values if the values in the request are empty
-         * create department
-         * return data
-         */
-
-         $validated = $request->validated();
-
+        $validated = $request->validated();
+        //array fields contains the names of the columns
         $fields = ['departmentname', 'departmentwebsite', 'weekday_id'];
 
+        //checks each field if it is empty or not
             foreach($fields as $field){
                 if(empty($validated[$field])){
                     $validated[$field] = $department->$field;
@@ -61,20 +52,21 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove a specific department
      */
     public function destroy(Department $department)
     {
+            //selects user_ids of that departments
             $deletable = Department::select('allocations.user_id')
                                 ->join('allocations', 'allocations.department_id', '=', 'departments.id')
                                 ->where('departments.id', $department->id)
                                 ->get();
 
-
+        //checks if there are any user_ids in deletable
         if (!$deletable->IsEmpty() ) {
             return response()->json('You can only delete empty departments', 403);
         }
-
+        //deletes that department, if there aren't any employees in that department
         $department->delete();
         return response()->json('everything worked', 200);
 
@@ -85,11 +77,7 @@ class DepartmentController extends Controller
      */
     public function displayEmployees(Department $department)
     {
-        /**
-         * SELECT Statement that combines the wanted data
-         * return data
-         */
-        //return $department;
+        //selects all employees of that department
          $employees = Department::select('users.username')
          ->join('allocations', 'departments.id', '=', 'allocations.department_id')
          ->join('users', 'allocations.user_id', '=', 'users.id')

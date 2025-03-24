@@ -17,6 +17,7 @@ class IsChef
      */
     public function handle(Request $request, Closure $next): Response
     {
+        //checks if the user is logged in and if the user is a Chef(boss) or not
         if (Auth::user() &&  Auth::user()->is_chef == true) {
             return $next($request);
        }
