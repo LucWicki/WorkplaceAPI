@@ -79,7 +79,7 @@ class UserController extends Controller
             }
             $user->departments()->sync($validated['department_id']);
             $user->update($userTable);
-            return $user;
+            return new UserResource($user);
     }
 
     /**
