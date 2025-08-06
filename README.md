@@ -5,10 +5,7 @@ Setup this Project
 - Run these commands:
     - Composer Install
     - php artisan install:api
-    - composer remove phpunit/phpunit
-    - composer require pestphp/pest --dev --with-all-dependencies
-    - composer require pestphp/pest-plugin-laravel –dev
-    - ./vendor/bin/pest --init
+    t
 
 - If you use XAMPP run these commands to initiate the database
     - php artisan migrate
